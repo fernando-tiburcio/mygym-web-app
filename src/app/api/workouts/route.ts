@@ -3,7 +3,6 @@ import prisma from '@/lib/prisma'
 import { URL } from 'url'
 
 interface WorkoutDetail {
-  name: string
   repetitions: number
   series: number
   description: string
@@ -17,6 +16,7 @@ export async function GET() {
     const workouts = await prisma.workout.findMany({
       select: {
         id: true,
+        name: true,
         active: true,
         created_at: true,
         user: {
@@ -29,7 +29,6 @@ export async function GET() {
         workoutDetails: {
           select: {
             id: true,
-            name: true,
             repetitions: true,
             series: true,
             description: true,
@@ -60,6 +59,7 @@ export async function GET() {
         created_at: 'desc',
       },
     })
+    console.log(workouts)
     return NextResponse.json(workouts)
   } catch (error) {
     console.error('Error fetching workouts:', error)
@@ -72,11 +72,11 @@ export async function POST(request: Request) {
     const body = await request.json()
     const workout = await prisma.workout.create({
       data: {
+        name: body.name,
         active: body.active,
         userId: body.userId,
         workoutDetails: {
           create: body.workoutDetails.map((detail: WorkoutDetail) => ({
-            name: detail.name,
             repetitions: detail.repetitions,
             series: detail.series,
             description: detail.description,
@@ -128,6 +128,7 @@ export async function PUT(request: Request) {
     await prisma.workout.update({
       where: { id },
       data: {
+        name: body.name,
         active: body.active,
         userId: body.userId,
       },
@@ -144,7 +145,6 @@ export async function PUT(request: Request) {
       await prisma.workoutUnit.createMany({
         data: body.workoutDetails.map((detail: WorkoutDetail) => ({
           workoutId: id,
-          name: detail.name,
           repetitions: detail.repetitions,
           series: detail.series,
           description: detail.description,

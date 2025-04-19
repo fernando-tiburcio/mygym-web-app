@@ -5,6 +5,7 @@ import { FaEdit, FaTrash, FaPlus, FaTimes } from 'react-icons/fa'
 
 interface Workout {
   id: string
+  name: string
   active: boolean
   created_at: string
   user: {
@@ -64,10 +65,10 @@ export default function WorkoutsPage() {
   const [editWorkoutId, setEditWorkoutId] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     userId: '',
+    name: '',
     active: true,
     workoutDetails: [
       {
-        name: '',
         exerciseId: '',
         repetitions: 12,
         series: 3,
@@ -83,6 +84,7 @@ export default function WorkoutsPage() {
   }, [])
 
   const fetchData = async () => {
+    console.log('fetching data')
     try {
       const [workoutsRes, usersRes, exercisesRes] = await Promise.all([
         fetch('/api/workouts'),
@@ -94,6 +96,7 @@ export default function WorkoutsPage() {
         usersRes.json(),
         exercisesRes.json(),
       ])
+      console.log(workoutsData)
       setWorkouts(workoutsData)
       setUsers(usersData)
       setExercises(exercisesData)
@@ -143,11 +146,11 @@ export default function WorkoutsPage() {
 
   const resetFormData = () => {
     setFormData({
+      name: '',
       userId: '',
       active: true,
       workoutDetails: [
         {
-          name: '',
           exerciseId: '',
           repetitions: 12,
           series: 3,
@@ -162,7 +165,6 @@ export default function WorkoutsPage() {
   const handleEdit = (workout: Workout) => {
     // Prepare form data for editing
     const workoutDetailsForEdit = workout.workoutDetails.map(detail => ({
-      name: detail.name,
       exerciseId: detail.exercise.id,
       repetitions: detail.repetitions,
       series: detail.series,
@@ -172,6 +174,7 @@ export default function WorkoutsPage() {
     }))
 
     setFormData({
+      name: workout.name,
       userId: workout.user.id,
       active: workout.active,
       workoutDetails: workoutDetailsForEdit,
@@ -205,7 +208,6 @@ export default function WorkoutsPage() {
       workoutDetails: [
         ...formData.workoutDetails,
         {
-          name: '',
           exerciseId: '',
           repetitions: 12,
           series: 3,
@@ -263,9 +265,9 @@ export default function WorkoutsPage() {
           <div key={workout.id} className="bg-gray-800 rounded-lg shadow-lg p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h2 className="text-xl font-semibold text-white">Workout for {workout.user.name}</h2>
+                <h2 className="text-xl font-semibold text-white">{workout.name}</h2>
                 <p className="text-sm text-gray-400">
-                  Created on {new Date(workout.created_at).toLocaleDateString()}
+                  Created on {new Date(workout.created_at).toLocaleDateString()} for {workout.user.name}
                 </p>
               </div>
               <span
@@ -322,6 +324,16 @@ export default function WorkoutsPage() {
             <h2 className="text-xl font-bold mb-4">{isEditMode ? 'Edit Workout' : 'Add New Workout'}</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-3 py-2 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  required
+                />
+              </div>
+              <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">User</label>
                 <select
                   value={formData.userId}
@@ -365,16 +377,6 @@ export default function WorkoutsPage() {
                       )}
                     </div>
                     <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Name</label>
-                        <input
-                          type="text"
-                          value={detail.name}
-                          onChange={(e) => updateExercise(index, 'name', e.target.value)}
-                          className="w-full px-3 py-2 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                          required
-                        />
-                      </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1">Exercise</label>
                         <select

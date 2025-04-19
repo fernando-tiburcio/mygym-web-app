@@ -7018,6 +7018,7 @@ export namespace Prisma {
 
   export type WorkoutMinAggregateOutputType = {
     id: string | null
+    name: string | null
     active: boolean | null
     userId: string | null
     created_at: Date | null
@@ -7025,6 +7026,7 @@ export namespace Prisma {
 
   export type WorkoutMaxAggregateOutputType = {
     id: string | null
+    name: string | null
     active: boolean | null
     userId: string | null
     created_at: Date | null
@@ -7032,6 +7034,7 @@ export namespace Prisma {
 
   export type WorkoutCountAggregateOutputType = {
     id: number
+    name: number
     active: number
     userId: number
     created_at: number
@@ -7041,6 +7044,7 @@ export namespace Prisma {
 
   export type WorkoutMinAggregateInputType = {
     id?: true
+    name?: true
     active?: true
     userId?: true
     created_at?: true
@@ -7048,6 +7052,7 @@ export namespace Prisma {
 
   export type WorkoutMaxAggregateInputType = {
     id?: true
+    name?: true
     active?: true
     userId?: true
     created_at?: true
@@ -7055,6 +7060,7 @@ export namespace Prisma {
 
   export type WorkoutCountAggregateInputType = {
     id?: true
+    name?: true
     active?: true
     userId?: true
     created_at?: true
@@ -7135,6 +7141,7 @@ export namespace Prisma {
 
   export type WorkoutGroupByOutputType = {
     id: string
+    name: string
     active: boolean
     userId: string
     created_at: Date
@@ -7159,6 +7166,7 @@ export namespace Prisma {
 
   export type WorkoutSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    name?: boolean
     active?: boolean
     userId?: boolean
     created_at?: boolean
@@ -7169,6 +7177,7 @@ export namespace Prisma {
 
   export type WorkoutSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    name?: boolean
     active?: boolean
     userId?: boolean
     created_at?: boolean
@@ -7177,6 +7186,7 @@ export namespace Prisma {
 
   export type WorkoutSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    name?: boolean
     active?: boolean
     userId?: boolean
     created_at?: boolean
@@ -7185,12 +7195,13 @@ export namespace Prisma {
 
   export type WorkoutSelectScalar = {
     id?: boolean
+    name?: boolean
     active?: boolean
     userId?: boolean
     created_at?: boolean
   }
 
-  export type WorkoutOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "active" | "userId" | "created_at", ExtArgs["result"]["workout"]>
+  export type WorkoutOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "active" | "userId" | "created_at", ExtArgs["result"]["workout"]>
   export type WorkoutInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     workoutDetails?: boolean | Workout$workoutDetailsArgs<ExtArgs>
@@ -7211,6 +7222,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      name: string
       active: boolean
       userId: string
       created_at: Date
@@ -7640,6 +7652,7 @@ export namespace Prisma {
    */
   interface WorkoutFieldRefs {
     readonly id: FieldRef<"Workout", 'String'>
+    readonly name: FieldRef<"Workout", 'String'>
     readonly active: FieldRef<"Workout", 'Boolean'>
     readonly userId: FieldRef<"Workout", 'String'>
     readonly created_at: FieldRef<"Workout", 'DateTime'>
@@ -8107,7 +8120,6 @@ export namespace Prisma {
 
   export type WorkoutUnitMinAggregateOutputType = {
     id: string | null
-    name: string | null
     exerciseId: string | null
     repetitions: number | null
     series: number | null
@@ -8119,7 +8131,6 @@ export namespace Prisma {
 
   export type WorkoutUnitMaxAggregateOutputType = {
     id: string | null
-    name: string | null
     exerciseId: string | null
     repetitions: number | null
     series: number | null
@@ -8131,7 +8142,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCountAggregateOutputType = {
     id: number
-    name: number
     exerciseId: number
     repetitions: number
     series: number
@@ -8157,7 +8167,6 @@ export namespace Prisma {
 
   export type WorkoutUnitMinAggregateInputType = {
     id?: true
-    name?: true
     exerciseId?: true
     repetitions?: true
     series?: true
@@ -8169,7 +8178,6 @@ export namespace Prisma {
 
   export type WorkoutUnitMaxAggregateInputType = {
     id?: true
-    name?: true
     exerciseId?: true
     repetitions?: true
     series?: true
@@ -8181,7 +8189,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCountAggregateInputType = {
     id?: true
-    name?: true
     exerciseId?: true
     repetitions?: true
     series?: true
@@ -8280,7 +8287,6 @@ export namespace Prisma {
 
   export type WorkoutUnitGroupByOutputType = {
     id: string
-    name: string
     exerciseId: string
     repetitions: number
     series: number
@@ -8311,7 +8317,6 @@ export namespace Prisma {
 
   export type WorkoutUnitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     exerciseId?: boolean
     repetitions?: boolean
     series?: boolean
@@ -8325,7 +8330,6 @@ export namespace Prisma {
 
   export type WorkoutUnitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     exerciseId?: boolean
     repetitions?: boolean
     series?: boolean
@@ -8339,7 +8343,6 @@ export namespace Prisma {
 
   export type WorkoutUnitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     exerciseId?: boolean
     repetitions?: boolean
     series?: boolean
@@ -8353,7 +8356,6 @@ export namespace Prisma {
 
   export type WorkoutUnitSelectScalar = {
     id?: boolean
-    name?: boolean
     exerciseId?: boolean
     repetitions?: boolean
     series?: boolean
@@ -8363,7 +8365,7 @@ export namespace Prisma {
     workoutId?: boolean
   }
 
-  export type WorkoutUnitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "exerciseId" | "repetitions" | "series" | "description" | "details" | "rest" | "workoutId", ExtArgs["result"]["workoutUnit"]>
+  export type WorkoutUnitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "exerciseId" | "repetitions" | "series" | "description" | "details" | "rest" | "workoutId", ExtArgs["result"]["workoutUnit"]>
   export type WorkoutUnitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     exercise?: boolean | ExerciseDefaultArgs<ExtArgs>
     workout?: boolean | WorkoutDefaultArgs<ExtArgs>
@@ -8385,7 +8387,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
       exerciseId: string
       repetitions: number
       series: number
@@ -8819,7 +8820,6 @@ export namespace Prisma {
    */
   interface WorkoutUnitFieldRefs {
     readonly id: FieldRef<"WorkoutUnit", 'String'>
-    readonly name: FieldRef<"WorkoutUnit", 'String'>
     readonly exerciseId: FieldRef<"WorkoutUnit", 'String'>
     readonly repetitions: FieldRef<"WorkoutUnit", 'Int'>
     readonly series: FieldRef<"WorkoutUnit", 'Int'>
@@ -9308,6 +9308,7 @@ export namespace Prisma {
 
   export const WorkoutScalarFieldEnum: {
     id: 'id',
+    name: 'name',
     active: 'active',
     userId: 'userId',
     created_at: 'created_at'
@@ -9318,7 +9319,6 @@ export namespace Prisma {
 
   export const WorkoutUnitScalarFieldEnum: {
     id: 'id',
-    name: 'name',
     exerciseId: 'exerciseId',
     repetitions: 'repetitions',
     series: 'series',
@@ -9701,6 +9701,7 @@ export namespace Prisma {
     OR?: WorkoutWhereInput[]
     NOT?: WorkoutWhereInput | WorkoutWhereInput[]
     id?: StringFilter<"Workout"> | string
+    name?: StringFilter<"Workout"> | string
     active?: BoolFilter<"Workout"> | boolean
     userId?: StringFilter<"Workout"> | string
     created_at?: DateTimeFilter<"Workout"> | Date | string
@@ -9710,6 +9711,7 @@ export namespace Prisma {
 
   export type WorkoutOrderByWithRelationInput = {
     id?: SortOrder
+    name?: SortOrder
     active?: SortOrder
     userId?: SortOrder
     created_at?: SortOrder
@@ -9722,6 +9724,7 @@ export namespace Prisma {
     AND?: WorkoutWhereInput | WorkoutWhereInput[]
     OR?: WorkoutWhereInput[]
     NOT?: WorkoutWhereInput | WorkoutWhereInput[]
+    name?: StringFilter<"Workout"> | string
     active?: BoolFilter<"Workout"> | boolean
     userId?: StringFilter<"Workout"> | string
     created_at?: DateTimeFilter<"Workout"> | Date | string
@@ -9731,6 +9734,7 @@ export namespace Prisma {
 
   export type WorkoutOrderByWithAggregationInput = {
     id?: SortOrder
+    name?: SortOrder
     active?: SortOrder
     userId?: SortOrder
     created_at?: SortOrder
@@ -9744,6 +9748,7 @@ export namespace Prisma {
     OR?: WorkoutScalarWhereWithAggregatesInput[]
     NOT?: WorkoutScalarWhereWithAggregatesInput | WorkoutScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Workout"> | string
+    name?: StringWithAggregatesFilter<"Workout"> | string
     active?: BoolWithAggregatesFilter<"Workout"> | boolean
     userId?: StringWithAggregatesFilter<"Workout"> | string
     created_at?: DateTimeWithAggregatesFilter<"Workout"> | Date | string
@@ -9754,7 +9759,6 @@ export namespace Prisma {
     OR?: WorkoutUnitWhereInput[]
     NOT?: WorkoutUnitWhereInput | WorkoutUnitWhereInput[]
     id?: StringFilter<"WorkoutUnit"> | string
-    name?: StringFilter<"WorkoutUnit"> | string
     exerciseId?: StringFilter<"WorkoutUnit"> | string
     repetitions?: IntFilter<"WorkoutUnit"> | number
     series?: IntFilter<"WorkoutUnit"> | number
@@ -9768,7 +9772,6 @@ export namespace Prisma {
 
   export type WorkoutUnitOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
     exerciseId?: SortOrder
     repetitions?: SortOrder
     series?: SortOrder
@@ -9785,7 +9788,6 @@ export namespace Prisma {
     AND?: WorkoutUnitWhereInput | WorkoutUnitWhereInput[]
     OR?: WorkoutUnitWhereInput[]
     NOT?: WorkoutUnitWhereInput | WorkoutUnitWhereInput[]
-    name?: StringFilter<"WorkoutUnit"> | string
     exerciseId?: StringFilter<"WorkoutUnit"> | string
     repetitions?: IntFilter<"WorkoutUnit"> | number
     series?: IntFilter<"WorkoutUnit"> | number
@@ -9799,7 +9801,6 @@ export namespace Prisma {
 
   export type WorkoutUnitOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
     exerciseId?: SortOrder
     repetitions?: SortOrder
     series?: SortOrder
@@ -9819,7 +9820,6 @@ export namespace Prisma {
     OR?: WorkoutUnitScalarWhereWithAggregatesInput[]
     NOT?: WorkoutUnitScalarWhereWithAggregatesInput | WorkoutUnitScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"WorkoutUnit"> | string
-    name?: StringWithAggregatesFilter<"WorkoutUnit"> | string
     exerciseId?: StringWithAggregatesFilter<"WorkoutUnit"> | string
     repetitions?: IntWithAggregatesFilter<"WorkoutUnit"> | number
     series?: IntWithAggregatesFilter<"WorkoutUnit"> | number
@@ -10103,6 +10103,7 @@ export namespace Prisma {
 
   export type WorkoutCreateInput = {
     id?: string
+    name: string
     active?: boolean
     created_at?: Date | string
     user: UserCreateNestedOneWithoutWorkoutsInput
@@ -10111,6 +10112,7 @@ export namespace Prisma {
 
   export type WorkoutUncheckedCreateInput = {
     id?: string
+    name: string
     active?: boolean
     userId: string
     created_at?: Date | string
@@ -10119,6 +10121,7 @@ export namespace Prisma {
 
   export type WorkoutUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkoutsNestedInput
@@ -10127,6 +10130,7 @@ export namespace Prisma {
 
   export type WorkoutUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     userId?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10135,6 +10139,7 @@ export namespace Prisma {
 
   export type WorkoutCreateManyInput = {
     id?: string
+    name: string
     active?: boolean
     userId: string
     created_at?: Date | string
@@ -10142,12 +10147,14 @@ export namespace Prisma {
 
   export type WorkoutUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WorkoutUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     userId?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10155,7 +10162,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCreateInput = {
     id?: string
-    name: string
     repetitions?: number
     series?: number
     description: string
@@ -10167,7 +10173,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedCreateInput = {
     id?: string
-    name: string
     exerciseId: string
     repetitions?: number
     series?: number
@@ -10179,7 +10184,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -10191,7 +10195,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     exerciseId?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
@@ -10203,7 +10206,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCreateManyInput = {
     id?: string
-    name: string
     exerciseId: string
     repetitions?: number
     series?: number
@@ -10215,7 +10217,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -10225,7 +10226,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     exerciseId?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
@@ -10500,6 +10500,7 @@ export namespace Prisma {
 
   export type WorkoutCountOrderByAggregateInput = {
     id?: SortOrder
+    name?: SortOrder
     active?: SortOrder
     userId?: SortOrder
     created_at?: SortOrder
@@ -10507,6 +10508,7 @@ export namespace Prisma {
 
   export type WorkoutMaxOrderByAggregateInput = {
     id?: SortOrder
+    name?: SortOrder
     active?: SortOrder
     userId?: SortOrder
     created_at?: SortOrder
@@ -10514,6 +10516,7 @@ export namespace Prisma {
 
   export type WorkoutMinOrderByAggregateInput = {
     id?: SortOrder
+    name?: SortOrder
     active?: SortOrder
     userId?: SortOrder
     created_at?: SortOrder
@@ -10556,7 +10559,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     exerciseId?: SortOrder
     repetitions?: SortOrder
     series?: SortOrder
@@ -10574,7 +10576,6 @@ export namespace Prisma {
 
   export type WorkoutUnitMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     exerciseId?: SortOrder
     repetitions?: SortOrder
     series?: SortOrder
@@ -10586,7 +10587,6 @@ export namespace Prisma {
 
   export type WorkoutUnitMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     exerciseId?: SortOrder
     repetitions?: SortOrder
     series?: SortOrder
@@ -11187,6 +11187,7 @@ export namespace Prisma {
 
   export type WorkoutCreateWithoutUserInput = {
     id?: string
+    name: string
     active?: boolean
     created_at?: Date | string
     workoutDetails?: WorkoutUnitCreateNestedManyWithoutWorkoutInput
@@ -11194,6 +11195,7 @@ export namespace Prisma {
 
   export type WorkoutUncheckedCreateWithoutUserInput = {
     id?: string
+    name: string
     active?: boolean
     created_at?: Date | string
     workoutDetails?: WorkoutUnitUncheckedCreateNestedManyWithoutWorkoutInput
@@ -11230,6 +11232,7 @@ export namespace Prisma {
     OR?: WorkoutScalarWhereInput[]
     NOT?: WorkoutScalarWhereInput | WorkoutScalarWhereInput[]
     id?: StringFilter<"Workout"> | string
+    name?: StringFilter<"Workout"> | string
     active?: BoolFilter<"Workout"> | boolean
     userId?: StringFilter<"Workout"> | string
     created_at?: DateTimeFilter<"Workout"> | Date | string
@@ -11378,7 +11381,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCreateWithoutExerciseInput = {
     id?: string
-    name: string
     repetitions?: number
     series?: number
     description: string
@@ -11389,7 +11391,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedCreateWithoutExerciseInput = {
     id?: string
-    name: string
     repetitions?: number
     series?: number
     description: string
@@ -11479,7 +11480,6 @@ export namespace Prisma {
     OR?: WorkoutUnitScalarWhereInput[]
     NOT?: WorkoutUnitScalarWhereInput | WorkoutUnitScalarWhereInput[]
     id?: StringFilter<"WorkoutUnit"> | string
-    name?: StringFilter<"WorkoutUnit"> | string
     exerciseId?: StringFilter<"WorkoutUnit"> | string
     repetitions?: IntFilter<"WorkoutUnit"> | number
     series?: IntFilter<"WorkoutUnit"> | number
@@ -11676,7 +11676,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCreateWithoutWorkoutInput = {
     id?: string
-    name: string
     repetitions?: number
     series?: number
     description: string
@@ -11687,7 +11686,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedCreateWithoutWorkoutInput = {
     id?: string
-    name: string
     exerciseId: string
     repetitions?: number
     series?: number
@@ -11776,6 +11774,7 @@ export namespace Prisma {
 
   export type WorkoutCreateWithoutWorkoutDetailsInput = {
     id?: string
+    name: string
     active?: boolean
     created_at?: Date | string
     user: UserCreateNestedOneWithoutWorkoutsInput
@@ -11783,6 +11782,7 @@ export namespace Prisma {
 
   export type WorkoutUncheckedCreateWithoutWorkoutDetailsInput = {
     id?: string
+    name: string
     active?: boolean
     userId: string
     created_at?: Date | string
@@ -11831,6 +11831,7 @@ export namespace Prisma {
 
   export type WorkoutUpdateWithoutWorkoutDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkoutsNestedInput
@@ -11838,6 +11839,7 @@ export namespace Prisma {
 
   export type WorkoutUncheckedUpdateWithoutWorkoutDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     userId?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11845,12 +11847,14 @@ export namespace Prisma {
 
   export type WorkoutCreateManyUserInput = {
     id?: string
+    name: string
     active?: boolean
     created_at?: Date | string
   }
 
   export type WorkoutUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workoutDetails?: WorkoutUnitUpdateManyWithoutWorkoutNestedInput
@@ -11858,6 +11862,7 @@ export namespace Prisma {
 
   export type WorkoutUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workoutDetails?: WorkoutUnitUncheckedUpdateManyWithoutWorkoutNestedInput
@@ -11865,6 +11870,7 @@ export namespace Prisma {
 
   export type WorkoutUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11927,7 +11933,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCreateManyExerciseInput = {
     id?: string
-    name: string
     repetitions?: number
     series?: number
     description: string
@@ -11938,7 +11943,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUpdateWithoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -11949,7 +11953,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedUpdateWithoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -11960,7 +11963,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedUpdateManyWithoutExerciseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -12027,7 +12029,6 @@ export namespace Prisma {
 
   export type WorkoutUnitCreateManyWorkoutInput = {
     id?: string
-    name: string
     exerciseId: string
     repetitions?: number
     series?: number
@@ -12038,7 +12039,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUpdateWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -12049,7 +12049,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedUpdateWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     exerciseId?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number
@@ -12060,7 +12059,6 @@ export namespace Prisma {
 
   export type WorkoutUnitUncheckedUpdateManyWithoutWorkoutInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     exerciseId?: StringFieldUpdateOperationsInput | string
     repetitions?: IntFieldUpdateOperationsInput | number
     series?: IntFieldUpdateOperationsInput | number

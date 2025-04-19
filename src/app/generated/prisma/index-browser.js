@@ -155,6 +155,7 @@ exports.Prisma.EquipmentScalarFieldEnum = {
 
 exports.Prisma.WorkoutScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   active: 'active',
   userId: 'userId',
   created_at: 'created_at'
@@ -162,7 +163,6 @@ exports.Prisma.WorkoutScalarFieldEnum = {
 
 exports.Prisma.WorkoutUnitScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   exerciseId: 'exerciseId',
   repetitions: 'repetitions',
   series: 'series',
