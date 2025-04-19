@@ -13,6 +13,8 @@ export default function EquipmentTypesPage() {
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [editingType, setEditingType] = useState<EquipmentType | null>(null)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [selectedTypeId, setSelectedTypeId] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     name: '',
   })
@@ -75,18 +77,25 @@ export default function EquipmentTypesPage() {
     setShowModal(true)
   }
 
-  const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this equipment type?')) {
-      try {
-        const response = await fetch(`/api/equipment-types?id=${id}`, {
-          method: 'DELETE',
-        })
-        if (response.ok) {
-          fetchEquipmentTypes()
-        }
-      } catch (error) {
-        console.error('Failed to delete equipment type:', error)
+  const handleOpenDeleteModal = (id: string) => {
+    setSelectedTypeId(id)
+    setShowDeleteConfirm(true)
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (!selectedTypeId) return
+
+    try {
+      const response = await fetch(`/api/equipment-types?id=${selectedTypeId}`, {
+        method: 'DELETE',
+      })
+      if (response.ok) {
+        setShowDeleteConfirm(false)
+        setSelectedTypeId(null)
+        fetchEquipmentTypes()
       }
+    } catch (error) {
+      console.error('Failed to delete equipment type:', error)
     }
   }
 
@@ -133,7 +142,7 @@ export default function EquipmentTypesPage() {
                     <FaEdit />
                   </button>
                   <button 
-                    onClick={() => handleDelete(type.id)}
+                    onClick={() => handleOpenDeleteModal(type.id)}
                     className="text-red-400 hover:text-red-300"
                   >
                     <FaTrash />
@@ -182,6 +191,32 @@ export default function EquipmentTypesPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">Delete Equipment Type</h2>
+            <p className="text-gray-300 mb-6">Are you sure you want to delete this equipment type? This action cannot be undone.</p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => {
+                  setShowDeleteConfirm(false)
+                  setSelectedTypeId(null)
+                }}
+                className="px-4 py-2 text-gray-300 hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteConfirm}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}

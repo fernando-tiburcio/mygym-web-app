@@ -13,6 +13,8 @@ export default function MuscleGroupsPage() {
   const [muscleGroups, setMuscleGroups] = useState<MuscleGroup[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null)
   const [editingGroup, setEditingGroup] = useState<MuscleGroup | null>(null)
   const [formData, setFormData] = useState({
     name: '',
@@ -35,15 +37,22 @@ export default function MuscleGroupsPage() {
   }
 
   const handleDelete = async (groupId: string) => {
-    if (!confirm('Are you sure you want to delete this muscle group?')) return
+    setSelectedGroupId(groupId)
+    setShowDeleteConfirm(true)
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!selectedGroupId) return
 
     try {
-      const response = await fetch(`/api/muscle-groups?id=${groupId}`, {
+      const response = await fetch(`/api/muscle-groups?id=${selectedGroupId}`, {
         method: 'DELETE',
       })
       
       if (response.ok) {
         toast.success('Muscle group deleted successfully!')
+        setShowDeleteConfirm(false)
+        setSelectedGroupId(null)
         fetchMuscleGroups()
       } else {
         const errorData = await response.json()
@@ -179,6 +188,29 @@ export default function MuscleGroupsPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">Confirm Delete</h2>
+            <p className="text-gray-300 mb-6">Are you sure you want to delete this muscle group? This action cannot be undone.</p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                className="px-4 py-2 text-gray-300 hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmDelete}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}
