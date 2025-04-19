@@ -1,41 +1,48 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import Header from "@/components/Header";
-import SideMenu from "@/components/SideMenu";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from 'react-hot-toast';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "My Gym Web App",
-  description: "My Gym Web App",
+  title: "Gym Dashboard",
+  description: "Gym Management System",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header />
-        <div className="flex">
-          <SideMenu />
-          <main className="flex-1 min-h-screen p-4">
-            {children}
-          </main>
+      <body className={`${inter.className} bg-gray-900 text-white`}>
+        <div className="min-h-screen">
+          {children}
         </div>
+        <Toaster 
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: '#1F2937',
+              color: '#fff',
+              border: '1px solid #374151',
+            },
+            success: {
+              style: {
+                background: '#059669',
+                color: '#fff',
+              },
+            },
+            error: {
+              style: {
+                background: '#DC2626',
+                color: '#fff',
+              },
+            },
+          }}
+        />
       </body>
     </html>
   );
