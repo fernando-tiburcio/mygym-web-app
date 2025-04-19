@@ -60,6 +60,8 @@ export default function WorkoutsPage() {
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [editWorkoutId, setEditWorkoutId] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     userId: '',
     active: true,
@@ -105,34 +107,95 @@ export default function WorkoutsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await fetch('/api/workouts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-      if (response.ok) {
-        setShowModal(false)
-        fetchData()
-        setFormData({
-          userId: '',
-          active: true,
-          workoutDetails: [
-            {
-              name: '',
-              exerciseId: '',
-              repetitions: 12,
-              series: 3,
-              description: '',
-              details: '',
-              rest: 30,
-            },
-          ],
+      if (isEditMode && editWorkoutId) {
+        const response = await fetch(`/api/workouts?id=${editWorkoutId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
         })
+        if (response.ok) {
+          setShowModal(false)
+          setIsEditMode(false)
+          setEditWorkoutId(null)
+          fetchData()
+          resetFormData()
+        }
+      } else {
+        const response = await fetch('/api/workouts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+        if (response.ok) {
+          setShowModal(false)
+          fetchData()
+          resetFormData()
+        }
       }
     } catch (error) {
-      console.error('Failed to create workout:', error)
+      console.error(`Failed to ${isEditMode ? 'update' : 'create'} workout:`, error)
+    }
+  }
+
+  const resetFormData = () => {
+    setFormData({
+      userId: '',
+      active: true,
+      workoutDetails: [
+        {
+          name: '',
+          exerciseId: '',
+          repetitions: 12,
+          series: 3,
+          description: '',
+          details: '',
+          rest: 30,
+        },
+      ],
+    })
+  }
+
+  const handleEdit = (workout: Workout) => {
+    // Prepare form data for editing
+    const workoutDetailsForEdit = workout.workoutDetails.map(detail => ({
+      name: detail.name,
+      exerciseId: detail.exercise.id,
+      repetitions: detail.repetitions,
+      series: detail.series,
+      description: detail.description || '',
+      details: detail.details || '',
+      rest: detail.rest,
+    }))
+
+    setFormData({
+      userId: workout.user.id,
+      active: workout.active,
+      workoutDetails: workoutDetailsForEdit,
+    })
+    
+    setIsEditMode(true)
+    setEditWorkoutId(workout.id)
+    setShowModal(true)
+  }
+
+  const handleDelete = async (id: string) => {
+    if (confirm('Are you sure you want to delete this workout?')) {
+      try {
+        const response = await fetch(`/api/workouts?id=${id}`, {
+          method: 'DELETE',
+        })
+        if (response.ok) {
+          fetchData()
+        } else {
+          console.error('Failed to delete workout')
+        }
+      } catch (error) {
+        console.error('Error deleting workout:', error)
+      }
     }
   }
 
@@ -182,7 +245,12 @@ export default function WorkoutsPage() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Workouts Management</h1>
         <button
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            resetFormData()
+            setIsEditMode(false)
+            setEditWorkoutId(null)
+            setShowModal(true)
+          }}
           className="flex items-center space-x-2 bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors"
         >
           <FaPlus />
@@ -220,10 +288,16 @@ export default function WorkoutsPage() {
                       </p>
                     </div>
                     <div className="flex space-x-2">
-                      <button className="text-emerald-400 hover:text-emerald-300">
+                      <button 
+                        onClick={() => handleEdit(workout)}
+                        className="text-emerald-400 hover:text-emerald-300"
+                      >
                         <FaEdit />
                       </button>
-                      <button className="text-red-400 hover:text-red-300">
+                      <button 
+                        onClick={() => handleDelete(workout.id)}
+                        className="text-red-400 hover:text-red-300"
+                      >
                         <FaTrash />
                       </button>
                     </div>
@@ -245,7 +319,7 @@ export default function WorkoutsPage() {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-gray-800 p-6 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold mb-4">Add New Workout</h2>
+            <h2 className="text-xl font-bold mb-4">{isEditMode ? 'Edit Workout' : 'Add New Workout'}</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">User</label>
@@ -262,6 +336,17 @@ export default function WorkoutsPage() {
                     </option>
                   ))}
                 </select>
+              </div>
+
+              <div className="flex items-center mb-4">
+                <input
+                  type="checkbox"
+                  id="active"
+                  checked={formData.active}
+                  onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
+                  className="mr-2 h-4 w-4"
+                />
+                <label htmlFor="active" className="text-sm font-medium text-gray-300">Active</label>
               </div>
 
               <div className="space-y-4">
@@ -381,7 +466,7 @@ export default function WorkoutsPage() {
                   type="submit"
                   className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"
                 >
-                  Create Workout
+                  {isEditMode ? 'Update Workout' : 'Create Workout'}
                 </button>
               </div>
             </form>
