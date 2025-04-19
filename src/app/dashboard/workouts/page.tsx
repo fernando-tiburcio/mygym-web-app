@@ -84,7 +84,6 @@ export default function WorkoutsPage() {
   }, [])
 
   const fetchData = async () => {
-    console.log('fetching data')
     try {
       const [workoutsRes, usersRes, exercisesRes] = await Promise.all([
         fetch('/api/workouts'),
@@ -96,7 +95,6 @@ export default function WorkoutsPage() {
         usersRes.json(),
         exercisesRes.json(),
       ])
-      console.log(workoutsData)
       setWorkouts(workoutsData)
       setUsers(usersData)
       setExercises(exercisesData)

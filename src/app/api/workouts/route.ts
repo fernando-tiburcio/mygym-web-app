@@ -59,7 +59,6 @@ export async function GET() {
         created_at: 'desc',
       },
     })
-    console.log(workouts)
     return NextResponse.json(workouts)
   } catch (error) {
     console.error('Error fetching workouts:', error)
