@@ -32,6 +32,9 @@ export default function ExercisesPage() {
   const [equipment, setEquipment] = useState<Equipment[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  const [editingExercise, setEditingExercise] = useState<Exercise | null>(null)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [exerciseToDelete, setExerciseToDelete] = useState<Exercise | null>(null)
   const [formData, setFormData] = useState({
     name: '',
     muscleGroupId: '',
@@ -67,8 +70,12 @@ export default function ExercisesPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await fetch('/api/exercises', {
-        method: 'POST',
+      const url = editingExercise 
+        ? `/api/exercises?id=${editingExercise.id}`
+        : '/api/exercises'
+      
+      const response = await fetch(url, {
+        method: editingExercise ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -76,12 +83,52 @@ export default function ExercisesPage() {
       })
       if (response.ok) {
         setShowModal(false)
+        setEditingExercise(null)
         fetchData()
         setFormData({ name: '', muscleGroupId: '', equipmentId: '' })
       }
     } catch (error) {
-      console.error('Failed to create exercise:', error)
+      console.error('Failed to save exercise:', error)
     }
+  }
+
+  const handleEdit = (exercise: Exercise) => {
+    setEditingExercise(exercise)
+    setFormData({
+      name: exercise.name,
+      muscleGroupId: exercise.muscleGroup.id,
+      equipmentId: exercise.equipment.id,
+    })
+    setShowModal(true)
+  }
+
+  const handleDelete = async (exercise: Exercise) => {
+    setExerciseToDelete(exercise)
+    setShowDeleteConfirm(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!exerciseToDelete) return
+
+    try {
+      const response = await fetch(`/api/exercises?id=${exerciseToDelete.id}`, {
+        method: 'DELETE',
+      })
+      if (response.ok) {
+        fetchData()
+      }
+    } catch (error) {
+      console.error('Failed to delete exercise:', error)
+    } finally {
+      setShowDeleteConfirm(false)
+      setExerciseToDelete(null)
+    }
+  }
+
+  const handleModalClose = () => {
+    setShowModal(false)
+    setEditingExercise(null)
+    setFormData({ name: '', muscleGroupId: '', equipmentId: '' })
   }
 
   if (loading) {
@@ -124,10 +171,16 @@ export default function ExercisesPage() {
                   <div className="text-sm text-gray-300">{exercise.equipment.name}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button className="text-emerald-400 hover:text-emerald-300 mr-3">
+                  <button 
+                    onClick={() => handleEdit(exercise)}
+                    className="text-emerald-400 hover:text-emerald-300 mr-3"
+                  >
                     <FaEdit />
                   </button>
-                  <button className="text-red-400 hover:text-red-300">
+                  <button 
+                    onClick={() => handleDelete(exercise)}
+                    className="text-red-400 hover:text-red-300"
+                  >
                     <FaTrash />
                   </button>
                 </td>
@@ -140,7 +193,9 @@ export default function ExercisesPage() {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">Add New Exercise</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {editingExercise ? 'Edit Exercise' : 'Add New Exercise'}
+            </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">Name</label>
@@ -187,7 +242,7 @@ export default function ExercisesPage() {
               <div className="flex justify-end space-x-3">
                 <button
                   type="button"
-                  onClick={() => setShowModal(false)}
+                  onClick={handleModalClose}
                   className="px-4 py-2 text-gray-300 hover:text-white"
                 >
                   Cancel
@@ -196,10 +251,38 @@ export default function ExercisesPage() {
                   type="submit"
                   className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"
                 >
-                  Create
+                  {editingExercise ? 'Update' : 'Create'}
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">Confirm Delete</h2>
+            <p className="text-gray-300 mb-4">
+              Are you sure you want to delete the exercise &quot;{exerciseToDelete?.name}&quot;?
+            </p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => {
+                  setShowDeleteConfirm(false)
+                  setExerciseToDelete(null)
+                }}
+                className="px-4 py-2 text-gray-300 hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}
