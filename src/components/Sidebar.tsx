@@ -12,13 +12,13 @@ import {
 } from 'react-icons/fa'
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: FaHome },
-  { name: 'Users', href: '/dashboard/users', icon: FaUsers },
-  { name: 'Muscle Groups', href: '/dashboard/muscle-groups', icon: FaDumbbell },
-  { name: 'Exercises', href: '/dashboard/exercises', icon: FaRunning },
-  { name: 'Equipment Types', href: '/dashboard/equipment-types', icon: FaTools },
-  { name: 'Equipment', href: '/dashboard/equipment', icon: FaTools },
-  { name: 'Workouts', href: '/dashboard/workouts', icon: FaClipboardList },
+  { name: 'Painel', href: '/dashboard', icon: FaHome },
+  { name: 'Usuários', href: '/dashboard/users', icon: FaUsers },
+  { name: 'Grupos Musculares', href: '/dashboard/muscle-groups', icon: FaDumbbell },
+  { name: 'Exercícios', href: '/dashboard/exercises', icon: FaRunning },
+  { name: 'Tipos de Equipamentos', href: '/dashboard/equipment-types', icon: FaTools },
+  { name: 'Equipamentos', href: '/dashboard/equipment', icon: FaTools },
+  { name: 'Treinos', href: '/dashboard/workouts', icon: FaClipboardList },
 ]
 
 export default function Sidebar() {
@@ -27,7 +27,7 @@ export default function Sidebar() {
   return (
     <div className="flex h-screen w-64 flex-col bg-gray-800">
       <div className="flex h-16 items-center justify-center border-b border-gray-700">
-        <h1 className="text-xl font-bold text-emerald-400">Gym Dashboard</h1>
+        <h1 className="text-xl font-bold text-emerald-400">Painel da Academia</h1>
       </div>
       <nav className="flex-1 space-y-1 p-4">
         {navigation.map((item) => {
